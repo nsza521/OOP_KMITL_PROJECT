@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Auction Register</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Mali&display=swap');
+        *{
+            font-family: 'Kanit', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        textarea:focus, input:focus{
+            outline: none;
+        }
+        input{
+            font-weight: 100;
+        }
+        body{
+            background-image: url('/HabitzoneImage/snow.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center right;
+            display: flex;
+            justify-content: center;
+        }
+        .box{
+            background-color: white;
+            width: 700px;
+            height:700px;
+            z-index: 1;
+            opacity: 0.9;
+            border-radius: 10px;
+            margin-top: 50px;
+            box-shadow: -0.5px -0.5px 10px rgba(0, 0, 0, 0.274),
+            0.5px 0.5px 10px rgba(0, 0, 0, 0.192);
+        }
+        form div{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0px;
+        }
+        .info{
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .info .p1{
+            font-size: 25px;
+            font-weight:500;
+        }
+        .info .p2{
+            margin-bottom: 40px;
+        }
+        /*  */
+        .nameandsurname div{
+            width: 35%;
+        }
+        .nameandsurname label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+        }
+        .nameandsurname input{
+            border-radius: 10px;
+            width: 82%;
+            height: 40px;
+            padding-left: 15px;
+            border:1px solid gray
+        }
+
+        /*  */
+        .inputname{
+            position: relative;
+            left: 10px;
+        }
+        .inputname label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+        }
+        .inputname input{
+            border-radius: 10px;
+            width: 65%;
+            height: 40px;
+            padding-left: 15px;
+            border:1px solid gray
+        }
+        /*  */
+        .inputpassword label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+            position: relative;
+            right:9px
+        }
+        .inputpassword input{
+            border-radius: 10px;
+            width: 65%;
+            height: 40px;
+            padding-left: 15px;
+            border:1px solid gray;
+            position: relative;
+            right:10px
+        }
+        /*  */
+        .confirm label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+            position: relative;
+            right:30px
+        }
+        .confirm input{
+            border-radius: 10px;
+            width: 65%;
+            height: 40px;
+            padding-left: 15px;
+            border:1px solid gray;
+            position: relative;
+            right:30px
+        }
+        /*  */
+        .numberinfo{
+            position: relative;
+            right: 15px;
+        }
+        .numberinfo div{
+            width: 100%;
+        }
+        .numberinfo label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+            position: relative;
+            right:10px
+        }
+        .numberinfo input{
+            border-radius: 10px;
+            width: 65%;
+            height: 40px;
+            padding-left: 15px;
+            border:1px solid gray;
+            position: relative;
+            right:10px
+        }
+        /*  */
+        .address label{
+            position: relative;
+            top:7px;
+            margin-right:10px;
+            position: relative;
+            left:1px
+        }
+        .address textarea{
+            border-radius: 10px;
+            width: 64%;
+            height: 100px;
+            padding-left: 15px;
+            padding-top: 8px;
+            border:1px solid gray;
+            position: relative;
+            left:1px;
+        }
+        .checkboxprivacy{
+            width: 86%;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+        .checkboxprivacy input{
+            transform: scale(1.5);
+        }
+        input[type=checkbox]{
+            accent-color: rgb(255, 0, 0);
+            mix-blend-mode: multiply;
+        }
+        a{
+            text-decoration: none;
+        }
+        .checkboxprivacy p{
+            position: relative;
+            left:10px;
+            bottom:1px;
+            font-weight: 100;
+        }
+        .checkboxprivacy a:link{
+            color: red;
+        }
+        .checkboxprivacy a:visited{
+            color: red;
+        }
+        .btnhide{
+            width: 40%;
+            height: 40px;
+            border-radius: 20px;
+            border: 0px solid gray;
+            margin-top: 10px;
+            color: gray;
+            border: 1px solid rgba(128, 128, 128, 0.253);
+        }
+        .btnshow{
+            width: 40%;
+            height: 40px;
+            border-radius: 20px;
+            border: 0px solid gray;
+            margin-top: 10px;
+            background-color: rgb(255, 0, 0);
+            color: rgb(255, 255, 255);
+            box-shadow: 1px 1px 5px rgb(252, 52, 52);
+        }
+        .boxpleaseinput{
+            height: 36px;
+            display: flex;
+            justify-content: start;
+            position: relative;
+            left:150px;
+            width: 65%;
+        }
+        #forposition{
+            margin-left: 170px;
+        }
+
+        .pleaseinputhide1{
+            visibility: hidden;
+        }
+        .pleaseinputhide2{
+            visibility: hidden;
+        }
+        .pleaseinputhide3{
+            visibility: hidden;
+        }
+        .pleaseinputhide4{
+            visibility: hidden;
+        }
+        .pleaseinputhide5{
+            visibility: hidden;
+        }
+        .pleaseinputhide6{
+            visibility: hidden;
+        }
+        .pleaseinputshow1{
+            visibility: visible;
+        }
+        .pleaseinputshow2{
+            visibility: visible;
+        }
+        .pleaseinputshow3{
+            visibility: visible;
+        }
+        .pleaseinputshow4{
+            visibility: visible;
+        }
+        .pleaseinputshow5{
+            visibility: visible;
+        }
+        .pleaseinputshow6{
+            visibility: visible;
+        }
+        .tooshortpasswordhide{
+            position: relative;
+            right:134px;
+            visibility: hidden;
+        }
+        .tooshortpasswordshow{
+            position: relative;
+            right:134px;
+            visibility: visible;
+        }
+        .wrapperregister{
+            background-color: black;
+            opacity: 0.6;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        video{
+            position: fixed;
+            z-index: -1;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        body {
+            background-image: url('https://static1.bigstockphoto.com/1/0/3/large1500/301920289.jpg');
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Do not repeat the image */
+        }
+    </style>
+    <link rel="icon" href="/HabitzoneImage/gura.jpg">
+</head>
+<body>
+    <div class="wrapperregister">
+        
+    </div>
+    <div class="box">
+
+        <form action="/register" method="post">
+            <div class="info">
+               <span class="p1">สมัครสมาชิก</span>
+               <span class="p2">กรุณากรอกข้อมูลของท่านให้ถูกต้องและครบถ้วน</span>
+            </div>
+
+            <div>
+                <div class="inputname">
+                    <label for="">ชื่อ</label>
+                    <input id='nameinput' placeholder="ป้อนชื่อผู้ใช้ของท่าน"class="form-control" type="text" name="name">
+                </div>
+            </div>
+            <div class="boxpleaseinput">
+                <p class="pleaseinputhide3" style="color: red; font-size: 12px;">*กรุณาระบุชื่อของท่าน</p>
+            </div>
+            
+            <div>
+                <div class="inputpassword">
+                    <label for="">รหัสผ่าน</label>
+                    <input id='passwordinput' placeholder="รหัสผ่าน ( 8-16 ตัวอักษร และ มีตัวเลข )" type="password" name="password">
+                </div>
+            </div>
+            <div class="boxpleaseinput">
+                <p class="pleaseinputhide4" style="color: red; font-size: 12px;">*กรุณาระบุรหัสผ่านของท่าน</p>
+                <p id='tspw'class="tooshortpasswordhide" style="color: red; font-size: 12px;">*รหัสผ่านต้องมีความยาว 8-16 ตัวอักษรและมีตัวเลข</p>
+            </div>
+
+            <div>
+                <div class="confirm">
+                    <label for="">ยืนยันรหัสผ่าน</label>
+                    <input id='confirmpasswordinput' placeholder="ยืนยันรหัสผ่าน" type="password" name="confirmpassword">
+                </div>
+            </div>
+            <div class="boxpleaseinput">
+                <p class="pleaseinputhide5" style="color: red; font-size: 12px;">*รหัสผ่านของผ่านไม่ตรงกับรหัสผ่านด้านบน</p>
+            </div>
+
+            <div  class="numberinfo">
+                <div>
+                    <label for="">บัตรประชาชน</label>
+                    <input id='idinput' type="number" placeholder="ใส่บัตรประชาชนของท่าน" name="id">
+                </div>
+            </div>
+            <div class="boxpleaseinput">
+                <p class="pleaseinputhide6" id="forposition2"   style="color: red; font-size: 12px;">*กรุณาระบุบัตรประชาชน</p>
+            </div>
+
+            <div>
+                <div class="address">
+                    <label for="">ที่อยู่</label>
+                    <textarea  id="" cols="30" rows="10" placeholder="*ที่อยู่สำหรับการจัดส่งหนังสือ (ใส่ทีหลังได้)" name="address"></textarea>
+                </div>
+            </div>
+
+            <div id="clickcheckbox" class="checkboxprivacy"> 
+                <input  type="checkbox"id="checkboxcheck" name="confirm_seller">
+                <p>สมัครสมาชิกเป็นSeller</p>
+            </div>
+            <div >
+                <button id="myBtn" class="btnhide" type="submit">ยืนยันการสมัคร</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const p3 = document.querySelector('.pleaseinputhide3')
+        const p4 = document.querySelector('.pleaseinputhide4')
+        const p5 = document.querySelector('.pleaseinputhide5')
+        const p6 = document.querySelector('.pleaseinputhide6')
+
+        const nameinput = document.getElementById('nameinput')
+        const passwordinput = document.getElementById('passwordinput')
+        const confirmpasswordinput = document.getElementById('confirmpasswordinput')
+        const idinput = document.getElementById('idinput')
+        const myBtn = document.getElementById('myBtn')
+        const click = document.getElementById('clickcheckbox')
+
+        document.getElementById("myBtn").disabled = true;
+        function clickmeifucan(){
+            let checkbox = document.getElementById('checkboxcheck')
+            let checkbool = checkbox.checked
+            let tspw = document.querySelector('#tspw')
+
+            let nip = nameinput.value != ''
+            let pwip = passwordinput.value != ''
+            let cfpwip = confirmpasswordinput.value != ''
+            let idip = idinput.value != ''
+            let resultlogic = nip&&pwip&&pwip&&cfpwip&&idip
+            
+            let p3c = p3.classList.contains('pleaseinputhide3')
+            let p4c = p4.classList.contains('pleaseinputhide4')
+            let p5c = p5.classList.contains('pleaseinputhide5')
+            let p6c = p6.classList.contains('pleaseinputhide6')
+            let tspwcheck = tspw.classList.contains('tooshortpasswordhide')
+
+            let resultlogicclass = p3c&&p4c&&p5c&&p6c&&tspwcheck
+            
+            if(resultlogic && resultlogicclass){
+                const classbtn = document.getElementById('myBtn')
+                classbtn.disabled = false
+                classbtn.classList.remove('btnhide')
+                classbtn.classList.add('btnshow')
+            }
+            else{
+                const classbtn = document.getElementById('myBtn')
+                classbtn.disabled = true
+                classbtn.classList.remove('btnshow')
+                classbtn.classList.add('btnhide')
+
+            }
+        }
+        function pleaseinputname(){
+            if(nameinput.value == ''){
+                p3.classList.remove('pleaseinputhide3')
+                p3.classList.add('pleaseinputshow3')
+            }
+            else{
+                if(!(nameinput.value == '')){
+                    p3.classList.remove('pleaseinputshow3')
+                    p3.classList.add('pleaseinputhide3')
+                }
+            }   
+            clickmeifucan()
+        }
+
+        function pleaseinputpassword(){
+            let passwordtext = passwordinput.value
+            let passwordlenght = passwordtext.length
+            const tspwhide = document.querySelector('#tspw')
+            function containsNumbers(str) {
+                return /[0-9]/.test(str);
+            }
+            function isCharacterALetter(char) {
+                return (/[a-zA-Z]/).test(char)
+            }
+            function isCharacterALetterThai(char) {
+                return (/[ก-ฮ]/).test(char)
+            }
+            if(passwordlenght >= 8){
+                if(containsNumbers(passwordtext) && (isCharacterALetter(passwordtext)|| isCharacterALetterThai(passwordtext))){
+                    p4.classList.remove('pleaseinputshow4')
+                    p4.classList.add('pleaseinputhide4')
+                    tspwhide.classList.remove('tooshortpasswordshow')
+                    tspwhide.classList.add('tooshortpasswordhide')
+                }
+                else{
+                    tspwhide.classList.remove('tooshortpasswordhide')
+                    tspwhide.classList.add('tooshortpasswordshow')
+                    p4.classList.remove('pleaseinputshow4')
+                    p4.classList.add('pleaseinputhide4')
+                
+                }
+            }
+            else if(passwordinput.value == ''){
+                    p4.classList.remove('pleaseinputhide4')
+                    p4.classList.add('pleaseinputshow4')
+                    tspwhide.classList.remove('tooshortpasswordshow')
+                    tspwhide.classList.add('tooshortpasswordhide')
+            }
+            else if(passwordlenght < 8){
+                if((passwordinput.value != '')){
+                    p4.classList.remove('pleaseinputshow4')
+                    p4.classList.add('pleaseinputhide4')
+                    tspwhide.classList.remove('tooshortpasswordhide')
+                    tspwhide.classList.add('tooshortpasswordshow')
+                }
+                
+            }
+            clickmeifucan()
+            checkpassword()
+        }
+        function checkpassword(){
+            const password = passwordinput.value
+            const confirmpass = confirmpasswordinput.value
+
+            if(password != confirmpass){
+                p5.classList.remove('pleaseinputhide5')
+                p5.classList.add('pleaseinputshow5')
+            }
+            else{
+            if(password == confirmpass){
+                    p5.classList.remove('pleaseinputshow5')
+                    p5.classList.add('pleaseinputhide5')
+                }
+            }   
+            clickmeifucan()
+        }
+        function pleaseinputphone(){
+            let idinputtext = idinput.value
+            let idinputlenght = idinputtext.length
+            function containsNumbers(str) {
+                return /[0-9]/.test(str);
+            }
+            if(idinput.value == ''){
+                p6.classList.remove('pleaseinputhide6')
+                p6.classList.add('pleaseinputshow6')
+            }
+            else{
+                if((containsNumbers(idinput.value) && idinputlenght == 13)){
+                    p6.classList.remove('pleaseinputshow6')
+                    p6.classList.add('pleaseinputhide6')
+                }
+                else{
+                    p6.classList.remove('pleaseinputhide6')
+                    p6.classList.add('pleaseinputshow6')
+                }
+            }
+            clickmeifucan()
+        }
+
+        nameinput.addEventListener('keyup',pleaseinputname)
+        nameinput.addEventListener('blur',pleaseinputname)
+        passwordinput.addEventListener('keyup',pleaseinputpassword)
+        passwordinput.addEventListener('blur',pleaseinputpassword)
+        confirmpasswordinput.addEventListener('keyup',checkpassword)
+        confirmpasswordinput.addEventListener('blur',checkpassword)
+        idinput.addEventListener('keyup',pleaseinputphone)
+        idinput.addEventListener('blur', pleaseinputphone)
+        click.addEventListener('click',clickmeifucan)
+    </script>
+</body>
+</html>

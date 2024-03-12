@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Payment_by_card</title>
+	<style>
+		*{padding:0; margin:0; box-sizing: border-box; font-family:sans-serif;}
+		header{
+			width: 100vw;
+			min-height: 100vh;
+			background: #1e1e1e;
+			font-size: 1.2rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.container{
+			border-radius: 10px;
+			background: white;
+			max-width: 800px;
+			min-height: 500px;
+			display: flex;
+			justify-content:space-between;
+			align-items: flex-start;
+			padding: 0.5rem 1.5rem;
+		}
+		.left{
+			flex-basis: 50%;
+		}
+		.right{
+			flex-basis: 50%;
+		}
+		form{
+			padding: 1rem;
+		}
+
+		h3{
+			margin-top: 1rem;
+			color:#2c3e50;
+			}
+
+		form input[type="text"]{
+			width: 100%;
+			padding: 0.5rem 0.7rem;
+			margin: 0.5rem 0;
+			outline: none;
+		}
+
+		#zip{
+			display: flex;
+			margin-top: 0.5rem;
+		}
+		#zip select{
+			padding: 0.5rem 0.7rem;
+		}
+		#zip input[type="number"]{
+			padding: 0.5rem 0.7rem;
+			margin-left: 5px;	
+		}
+		input[type="submit"]{
+			width: 100%;
+			padding: 0.7rem 1.5rem;
+			background: #ff6200;
+			color: white;
+			border: none;
+			outline: none;
+			margin-top: 1rem;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover{
+			background: #ff2c1d;
+		}
+
+
+		@media only screen and (max-width: 770px){
+			.container{
+				flex-direction: column;
+			}
+			body{
+				overflow-x: hidden;
+			}
+		}
+
+	</style>
+</head>
+<body>
+<header>
+	<div class="container">
+		<div class="left">
+			<h3>BILLING ADDRESS</h3>
+			<form>
+				Full name
+				<input type="text" name="" placeholder="Enter name">
+				Email
+				<input type="text" name="" placeholder="Enter email">
+
+				Address
+				<input type="text" name="" placeholder="Enter address">
+				
+				City
+				<input type="text" name="" placeholder="Enter City">
+				
+				<div id="zip">
+					<label>
+						State
+						<select>
+							<option>Choose State..</option>
+							<option>Rajasthan</option>
+							<option>Hariyana</option>
+							<option>Uttar Pradesh</option>
+							<option>Madhya Pradesh</option>
+						</select>
+					</label>
+						<label>
+						Zip code
+						<input type="number" name="" placeholder="Zip code">
+					</label>
+				</div>
+			</form>
+		</div>
+		<div class="right">
+			<h3>PAYMENT</h3>
+			<form action="/add_money_to_account" method="post">
+				Accepted Card <br>
+				<img src="https://thumbs.dreamstime.com/b/buttons-popular-payment-systems-masetcard-visa-apple-pay-google-website-rectangular-rounded-edges-vector-220153004.jpg" width="200">
+				<br><br>
+
+				Credit card number
+			<input type="text" name="" placeholder="Enter card number">
+				
+				<div id="zip">
+					<label>
+						Exp year
+						<select>
+							<option>Choose Year..</option>
+							<option>2022</option>
+							<option>2023</option>
+							<option>2024</option>
+							<option>2025</option>
+						</select>
+					</label>
+						<label>
+						CVV
+						<input type="number" name="" placeholder="CVV">
+					</label>
+				</div>
+				Money
+				<input type="text" name="amount" placeholder="Enter amount of money">
+				<input type="number"id="account_id"name="account_id" value="" style="display: none;">
+				<input type="text" name="method" value="card" style="display: none;">
+				<input type="submit" name="" value="Proceed to Checkout">
+				
+			</form>
+			<script>
+				fetch('/get_user_info_which_login')
+				.then(response => response.json())
+				.then(data => {
+					console.log(data.login_status)
+					const accountIdInput = document.getElementById('account_id');
+					if (data.login_status) { 
+						accountIdInput.value = data.user_login_id;
+					}
+				})
+				.catch(error => {
+					console.error('Error fetching user data and login status:', error);
+				});
+			</script>
+		</div>
+	</div>
+</header>
+</body>
+</html>

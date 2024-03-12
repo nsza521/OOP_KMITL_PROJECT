@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .menu_bar span{
+            color:orange
+        }
+        .menu_bar p{
+            font-size: 13px;
+            margin: 5px;
+        }
+        .money p{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+       hr {
+            border: none; /* Remove default border */
+            height: 1px; /* Set height of the horizontal rule */
+            background-color: #ccc; /* Set background color */
+            margin: 10px 0; /* Add margin above and below the <hr> */
+       }
+       .btn_mem:hover{
+        opacity: 0.6;
+        text-decoration: underline;
+       }
+       div{
+        transition: all 0.5s ease;
+       }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div style="width: 100%; display: flex; justify-content: center; min-height: 1200px;">
+        <div style="width: 960px;">
+            <hr>
+            <div style="display: flex; min-height: 800px;">
+                <div class="menu_bar" style="flex:1">
+                    <div style="margin-top: 20px;">
+                        <div style="height: 30px; display: flex; justify-content: center; align-items: center;">
+                            <p style="display: flex;justify-content: center; align-items: center; font-size: 14px; "><span class="material-symbols-outlined">person</span>ข้อมูลผู้ใช้</p>
+                        </div>
+                        <hr style="border-top:1.5px solid  orange;">
+                        <p class="btn_mem" id="main">หน้าหลัก</p>
+                        <hr>
+                        <p class="btn_mem" id="address">ที่อยู่ในการจัดส่ง</p>
+                        <hr>
+                        <p class="btn_mem" id="cash">เติมเงิน ฝาก/ถอน</p>
+                        <hr>
+                        <p class="btn_mem" id="auction">สินค้าที่ประมูลอยู่</p>
+                        <hr>
+                        <p class="btn_mem" id="item">สินค้าที่สั่งซื้อ / ประมูลสำเร็จ</p>
+                        <hr>
+                        <p class="btn_mem" id="purchase">สินค้าที่ชำระค่าส่งแล้ว</p>
+                        <hr>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div style="height: 30px; display: flex; justify-content: center; align-items: center;">
+                            <p style="display: flex;justify-content: center; align-items: center; font-size: 14px;"><span class="material-symbols-outlined">campaign</span>กิจกรรม</p>
+                        </div>
+                        <hr style="border-top:1.5px solid  orange;">
+                        <p>Yahoo! Thailand ข้อมูลการประมูล</p>
+                        <hr>
+                        <p>ข้อมูลเว็บไซต์</p>
+                        <hr>
+                        <p>ช็อปปิ้ง</p>
+                        <hr>
+                        <p>ประมูล</p>
+                        <hr>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div style="height: 30px; display: flex; justify-content: center; align-items: center;">
+                            <p style="display: flex;justify-content: center; align-items: center; font-size: 14px;"><span class="material-symbols-outlined">help</span>อื่นๆ</p>
+                        </div>
+                        <hr style="border-top:1.5px solid  orange;">
+                        <p>ติดต่อเรา</p>
+                        <hr>
+                        <p>คำถามที่พบบ่อย</p>F
+                        <hr>
+                    </div>
+                </div>
+                <div class="all_info" style="flex:3;display: flex; flex-direction: column; align-items: center;">
+
+                    <div class="info_user" style=" width: 90%;flex:3;display: flex; flex-direction: column;align-items: center; display: block ;position: relative; top:0px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">ข้อมูลผู้ใช้</p>
+                        <div style="border:1px solid rgb(0, 0, 0); font-size: 14px; color: rgb(0, 0, 0); ; width: 90%; padding: 15px; border-radius: 5px;">
+                            <div style="display: flex;">
+                                <p style="width: 150px; font-weight: bold;">ชื่อ</p><p style="margin-left: 20px;">{{user_info.name}}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p style="width: 150px; font-weight: bold;">บัตรประชาชน</p><p style="margin-left: 20px;">{{user_info.citizen_id}}</p>
+                            </div>
+                            <div style="display: flex;">
+                            </div>
+                        </div>
+                    </div>
+       
+                    <div class="info_bar_address" style=" width: 90%;display: flex; flex-direction: column;align-items: center; display: none; position: relative; top:10px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">รายการที่อยู่ในการจัดส่ง</p>
+                        <div style="border:1px solid rgb(0, 0, 0); font-size: 14px; color: rgb(0, 0, 0); ; width: 90%; padding: 15px; border-radius: 5px;">
+                            <p style="margin: 0 0 20px 0;">ที่อยู่การจัดส่งที่ 1</p>
+                            <div style="display: flex;">
+                                <p style="width: 150px; font-weight: bold;">ชื่อ</p><p style="margin-left: 20px;"></p>
+
+                            </div>
+                            <div style="display: flex;">
+                                <p style="width: 150px; font-weight: bold;">บัตรประชาชน</p><p style="margin-left: 20px;"></p>
+                            </div>
+                            <div style="display: flex;">
+                                <p style="width: 150px; font-weight: bold;">ที่อยู่ในการจัดส่ง : </p>
+                            </div>
+                            <textarea name="" id="" cols="30" rows="10" style="width: 100%; margin-top: 20px; padding: 20px;border-radius: 5px;">{{user_info.address}}</textarea>
+                        </div>
+                        <button style="background-color: rgb(223, 145, 0); color: white; border: none; width: 90px;height: 30px; border-radius: 5px; margin-top: 20px;" onclick="openForm2()">เพิ่มที่อยู่</button>
+                        <div class="withdraw-form-container" id="address-form-container">
+                            <div class="withdraw-form">
+                                <button class="close-btn" onclick="closeForm2()">Close</button>
+                                <form id="withdraw-form" action="/add_address" method="post" style="display: flex;flex-direction: column;" >
+                                    <label for="withdraw-amount">Address:</label>
+                                    <input type="text" id="withdraw-amount" name="address" style="height: 100px; width: 300px;">
+                                    <input type="number" id="withdraw-account-id" name="account_id" style="display: none;" value="{{ user_info.id }}" readonly>
+                                    <button type="submit" style="margin-top: 10px; border-radius: 5px; color: #ffffff; background-color: rgb(0, 189, 167); border:none">ยืนยัน</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+    
+    
+    
+                    <div class="info_bar_cash" style="width: 90%;display: flex; flex-direction: column;align-items: center; display: none;  position: relative; top:10px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">Django_auction Wallet</p>
+                        <div style="border:1px solid red; font-size: 12px; color: red; background-color: rgba(255, 0, 0, 0.25); width: 90%; padding: 15px;">
+                            <p>*ข้อควรระวังที่สำคัญ*</p>
+                            <p>1. Django_wallet สามารถใช้ได้เฉพาะการประมูลและการสั่งซื้อที่มีมูลค่าสินค้ามากกว่า 900,000 บาท (ไม่รวมค่าธรรมเนียมการซื้อ)</p>
+                            <p>2. โปรดแน่ใจว่าคุณทำการสมัครฝากเงินทุกครั้งก่อนโอนเงิน และโอนเงินผ่าน Wise โดยพิจารณาจากจำนวนเงินที่คุณได้ทำการสมัครฝากและหมายเลขอ้างอิงที่ออกมา</p>
+                            <p>3. โปรดอ่านคู่มือการใช้งานและข้อควรระวังของ Buyee Wallet อย่างละเอียดก่อนใช้งาน</p>
+                        </div>
+                        <div style="width: 90%; display: flex; flex-direction: row; margin: 20px; justify-content: end;">
+                            <a href="/payment"><button style="align-self: flex-end; background-color: rgb(223, 145, 0); color: white;margin:10px; border: none; width: 90px;height: 30px; border-radius: 5px;">ฝากเงิน</button></a>
+                            
+                            <button onclick="openForm()" style="align-self: flex-end; background-color: rgb(223, 145, 0); color: white;margin:10px; border: none; width: 90px;height: 30px; border-radius: 5px;">ถอนเงิน</button>
+                            <style>
+                                body {
+                                    margin: 0;
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f4f4f4;
+                                }
+
+                                .withdraw-form-container {
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+                                    display: none;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+
+                                .withdraw-form {
+                                    background-color: white;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                                    position: relative;
+                                }
+
+                                .close-btn {
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 10px;
+                                    background-color: transparent;
+                                    border: none;
+                                    cursor: pointer;
+                                    font-size: 16px;
+                                    color: #555;
+                                }
+
+                                .close-btn:hover {
+                                    color: #333;
+                                }
+
+                                .withdraw-form label {
+                                    display: block;
+                                    margin-bottom: 10px;
+                                }
+
+                                .withdraw-form input[type="number"] {
+                                    width: 100%;
+                                    padding: 10px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 5px;
+                                    box-sizing: border-box;
+                                    margin-bottom: 20px;
+                                }
+
+                                .withdraw-form input[type="submit"] {
+                                    width: 100%;
+                                    padding: 10px;
+                                    background-color: #007bff;
+                                    color: white;
+                                    border: none;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    transition: background-color 0.3s;
+                                }
+
+                                .withdraw-form input[type="submit"]:hover {
+                                    background-color: #0056b3;
+                                }
+                            </style>
+
+                      
+                            <div class="withdraw-form-container" id="withdraw-form-container">
+                                <div class="withdraw-form">
+                                    <button class="close-btn" onclick="closeForm()">Close</button>
+                                    <form id="withdraw-form" action="/withdraw" method="post">
+                                        <label for="withdraw-amount">Withdraw Amount:</label>
+                                        <input type="number" id="withdraw-amount" name="amount">
+                                        <input type="number" id="withdraw-amount" name="account_id" style="display: none;" value="{{ user_info.id }}" readonly>
+                                        <input type="submit" value="Withdraw">
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <script>
+                                function closeForm() {
+                                    document.getElementById('withdraw-form-container').style.display = 'none';
+                                }
+                                function closeForm2() {
+                                    document.getElementById('address-form-container').style.display = 'none';
+                                }
+                                function openForm() {
+                                    document.getElementById('withdraw-form-container').style.display = 'flex';
+                                }
+                                function openForm2() {
+                                    document.getElementById('address-form-container').style.display = 'flex';
+                                }
+                            </script>
+
+
+                            <script>
+                                function checkDate() {
+                                    var selectedText = document.getElementById('datepicker').value;
+                                    var selectedDate = new Date(selectedText);
+                                    var now = new Date();
+                                    if (selectedDate < now) {
+                                        alert("Date must be in the future (วันที่ห้ามเป็นอดีต)");
+                                    }
+                                }
+                                const showButton = document.getElementById('btn_show_close');
+                                const floatingDiv = document.querySelector('.floating_box');
+                                const bg = document.getElementById("close")
+                                showButton.addEventListener('click', () => {
+                                    if (floatingDiv.style.visibility == 'hidden') {
+                                        floatingDiv.style.visibility = 'visible';
+                                    } else {
+                                        floatingDiv.style.visibility = 'hidden';
+                                    }
+                                });
+                                bg.addEventListener('click',()=>{
+                                    if (floatingDiv.style.visibility == 'hidden') {
+                                        floatingDiv.style.visibility = 'visible';
+                                    } else {
+                                        floatingDiv.style.visibility = 'hidden';
+                                    }
+                                })
+                            </script>
+                            
+                        </div>
+
+                        <div class="money" style="display: flex; width: 90%">
+                            <p style="font-size: 14px;">ยอดเงินคงเหลือปัจจุบัน</p>
+                            <p style="margin-left: 50px; color: red; font-weight: bolder; font-size: 20px;">{{ "{:,.0f}".format(user_info.credit) }}บาท</p>
+                        </div>
+                        <hr style="width: 90%;">
+                    </div>
+                    
+                    <div class="info_cart_auction" style="width: 90%;display: flex; flex-direction: column;align-items: center; margin-bottom: 40px; display: none; position: relative; top:10px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">สินค้าที่กำลังประมูล</p>
+                        <div id="bug" style="background-color: rgba(128, 128, 128, 0.374); height: 30px;display: flex; align-items: center;  width: 90%;font-size: 14px;">
+                            <p style="width: 150px;height: 100%;background-color: white;color: orange; display:flex; justify-content: center;align-items: center; border-top:2px solid orange;">กำลังประมูล</p> 
+                        </div>
+                        <span style="color:red;margin: 0; padding: 0; font-size: 14px; display: flex; align-items: center; margin-top: 10px;">* กดสินค้าเพื่อดูรายละเอียด</span>
+                        <style>
+                            #for_hover:hover{
+                                opacity: 0.6;
+                            }
+                        </style>
+                        <div  style="width: 90%; border: 2px dashed gray; border-radius: 5px; margin-top: 20px; max-height: 800px; overflow-y: auto; background-color: rgba(128, 128, 128, 0.075);">
+                        {% for key, value in bid_list.items() %}
+                                <a href="/view_product/{{value.id}}" style="text-decoration: none;color: black;">
+                                    <div style="width: calc(100% - 20px); background-color: rgba(178, 178, 178, 0.367); height: 120px; border-radius: 5px; margin: 10px auto; display: flex;">
+                                        <div style="background-color: gray; margin:10px; width: 100px; height:100px; border-radius: 5px;">
+                                            <img src="{{ value.path }}" alt="" style="width: 100%; height: 100%; border-radius: 5px;">
+                                        </div>
+                                        <div style="flex:9; margin:10px;">
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ชื่อสินค้า</p><p>{{ key }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ราคา</p><p>{{ value.price }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">สถานะ</p><p class="datetime" style="color: green;">{{ value.status }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">Most_Bidder</p><p class="datetime" style="color:rgb(207, 137, 6);">{{ value.most_bidder }}</p></div>
+                                            <div style="display: none; font-size: 12px; height:20px;"><p style="width:120px;">เวลาที่เหลือ</p><p id="datetime_{{value.id}}" style="color: red;">{{ value.time }} {{ value.date }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">เวลาที่เหลือ</p><p style="color: red;" id="timeDifference_{{ value.id }}">{{ value.date }} {{ value.time }}</p></div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                        {% endfor %}
+                        <script>
+                            function updateTimeDifference(id) {
+                                var now = new Date();
+
+                                var datetimeStr = document.getElementById('datetime_' + id).innerText.trim();
+                                var parts = datetimeStr.split(' ');
+                                var timeParts = parts[0].split(':');
+                                var dateParts = parts[1].split('-');
+                                var targetDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], timeParts[0], timeParts[1]);
+                                var timeDiff = targetDate.getTime() - now.getTime();
+
+                                var secondsDiff = Math.floor(timeDiff / 1000) % 60;
+                                var minutesDiff = Math.floor(timeDiff / (1000 * 60)) % 60;
+                                var hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
+
+                                var displayTime = hoursDiff + " hr, " + minutesDiff + " min, " + secondsDiff + " sec";
+                                document.getElementById('timeDifference_' + id).innerText = displayTime;
+                            }
+                             setInterval(function () {
+                                {% for key, value in bid_list.items() %}
+                                    updateTimeDifference({{ value.id }}); // Added quotes around status
+                                {% endfor %}
+                            }, 1000);
+                        </script>
+                        {% if not has_items %}
+                            <div style="width: calc(100% - 20px); min-height: 200px; display: flex; justify-content: center; align-items: center; color: rgb(0, 136, 136); margin: 10px auto;">ขณะนี้ยังไม่มีสินค้าที่ท่านได้ซื้อเพิ่มเติม</div>
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    <style>
+                        #bug p{
+                            position: relative;
+                            top:8px
+                        }
+                    </style>
+                    <div class="info_cart_sucess" style="width: 90%;display: flex; flex-direction: column;align-items: center; margin-bottom: 40px; display: none; position: relative; top:10px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">ข้อมูลพัสดุ</p>
+                        <div id="bug" style="background-color: rgba(128, 128, 128, 0.374); height: 30px;display: flex; align-items: center;  width: 90%;font-size: 14px;">
+                            <p style="width: 150px;height: 100%;background-color: white;color: orange; display:flex; justify-content: center;align-items: center; border-top:2px solid orange;">สั่งซื้อ/ประมูล สำเร็จ</p> <p style="color: rgb(0, 136, 136); margin-left: 10px;">(กำลังรอการชำระค่าจัดส่ง...)</p>
+                        </div>
+                        
+                          
+                        <div style="width: 90%; border: 2px dashed gray; border-radius: 5px; margin-top: 20px; min-height: 200px; background-color: rgba(128, 128, 128, 0.075);">
+                            
+                            {% for key,vaule in cart_info.items() %}
+                                {% if (vaule.status == "Bought" or vaule.status == "Complete") and vaule.status_shipping != "Purchased"%}
+                                    <div style="width: calc(100% - 20px); background-color: rgba(178, 178, 178, 0.367); height: 120px; border-radius: 5px; margin: 10px auto; display: flex;">
+                                        <div style="background-color: gray; margin:10px; width: 100px; height:100px; border-radius: 5px;">
+                                            <img src="{{ vaule.path }}" alt="" style="width: 100%; height: 100%; border-radius: 5px;">
+                                        </div>
+                                        <div style="flex:9; margin:10px;">
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ชื่อสินค้า</p><p>{{ key }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ราคา</p><p>{{ vaule.price }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">สถานะ</p><p class="datetime" style="color: green;">{{ vaule.status }}</p></div>
+                                            <form action="/pay_shipping/{{vaule.id}}" method="post">
+                                                <input type="number" name="amount" value="60" style="display: none;" readonly>
+                                                <input type="number" value="{{ user_info.id }}" name="acc_id" style="display: none;" readonly>
+                                                <input type="text" name="discount" placeholder="ใส่โค้ดเพื่อรับส่วนลดค่าจัดส่ง(ไม่จำเป็น)" style="font-size: 12px; height: 25px; width: 250px; padding-left: 10px;"> 
+                                                <button type="submit" style="height: 25px; border:none; background-color: rgb(0, 177, 177); color:white;font-size: 12px; padding: 5px; border-radius: 5px;">ชำระค่าส่ง 60 บาท</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+                                {% endfor %}
+                                {% if not has_items %}
+                                    <div style="width: calc(100% - 20px); min-height: 200px; display: flex; justify-content: center; align-items: center; color: rgb(0, 136, 136); margin: 10px auto;">ขณะนี้ยังไม่มีสินค้าที่ท่านได้ซื้อเพิ่มเติม</div>
+                                {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="purchase" style="width: 90%;display: flex; flex-direction: column;align-items: center; margin-bottom: 40px; display: none; position: relative; top:10px">
+                        <p style=" font-size: 24px;  width: 90%; margin: 20px 0 20px 0;">ที่ชำระค่าจัดส่งแล้ว</p>
+                        <div id="bug" style="background-color: rgba(128, 128, 128, 0.374); height: 30px;display: flex; align-items: center;  width: 90%;font-size: 14px;">
+                            <p style="width: 150px;height: 100%;background-color: white;color: orange; display:flex; justify-content: center;align-items: center; border-top:2px solid orange;">สั่งซื้อ/ประมูล สำเร็จ</p> <p style="color: rgb(0, 136, 136); margin-left: 10px;">(กำลังรอการชำระค่าจัดส่ง...)</p>
+                        </div>
+                        
+                          
+                        <div style="width: 90%; border: 2px dashed gray; border-radius: 5px; margin-top: 20px; min-height: 200px; background-color: rgba(128, 128, 128, 0.075);">
+                            
+                            {% for key,vaule in cart_info.items() %}
+                                {% if vaule.status_shipping == "Purchased" %}
+                                    <div style="width: calc(100% - 20px); background-color: rgba(178, 178, 178, 0.367); height: 120px; border-radius: 5px; margin: 10px auto; display: flex;">
+                                        <div style="background-color: gray; margin:10px; width: 100px; height:100px; border-radius: 5px;">
+                                            <img src="{{ vaule.path }}" alt="" style="width: 100%; height: 100%; border-radius: 5px;">
+                                        </div>
+                                        <div style="flex:9; margin:10px;">
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ชื่อสินค้า</p><p>{{ key }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">ราคา</p><p>{{ vaule.price }}</p></div>
+                                            <div style="display: flex; font-size: 12px; height:20px;"><p style="width:120px;">สถานะ</p><p class="datetime" style="color: green;">{{ vaule.status_shipping    }}</p></div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+                                {% endfor %}
+                                {% if not has_items %}
+                                    <div style="width: calc(100% - 20px); min-height: 200px; display: flex; justify-content: center; align-items: center; color: rgb(0, 136, 136); margin: 10px auto;">ขณะนี้ยังไม่มีสินค้าที่ท่านได้ซื้อเพิ่มเติม</div>
+                                {% endif %}
+                        </div>
+                    </div>
+    
+
+
+                </div>
+                
+                
+
+
+                <!-- <div class="info_bar_coupon" style="flex:3;display: flex; flex-direction: column;align-items: center;">
+
+                </div> -->
+                
+            </div>
+
+        </div>
+    </div>
+    {%include "footer.html"%}
+    
+    <script>
+
+                                                
+
+        let info_user = document.querySelector(".info_user")
+        let info_bar_address = document.querySelector(".info_bar_address")
+        let info_bar_cash = document.querySelector(".info_bar_cash")
+        let info_cart_sucess = document.querySelector(".info_cart_sucess")
+        let info_cart_auction = document.querySelector(".info_cart_auction")
+        let purchase = document.querySelector(".purchase")
+        document.getElementById("main").addEventListener("click",function(){
+            info_user.style.display = "block";
+            info_bar_address.style.display = "none";
+            info_bar_cash.style.display = "none";
+            info_cart_sucess.style.display = "none";
+            info_cart_auction.style.display = "none"
+            purchase.style.display = "none"
+        })
+        document.getElementById("address").addEventListener("click",function(){
+            info_user.style.display = "none";
+            info_bar_address.style.display = "block";
+            info_bar_cash.style.display = "none";
+            info_cart_sucess.style.display = "none";
+            info_cart_auction.style.display = "none"
+            purchase.style.display = "none"
+
+        })
+        document.getElementById("cash").addEventListener("click",function(){
+            info_user.style.display = "none";
+            info_bar_address.style.display = "none";
+            info_bar_cash.style.display = "block";
+            info_cart_sucess.style.display = "none";
+            info_cart_auction.style.display = "none"
+            purchase.style.display = "none"
+
+        })
+        document.getElementById("item").addEventListener("click",function(){
+            info_user.style.display = "none";
+            info_bar_address.style.display = "none";
+            info_bar_cash.style.display = "none";
+            info_cart_sucess.style.display = "block";
+            info_cart_auction.style.display = "none"
+            purchase.style.display = "none"
+
+        })
+        document.getElementById("auction").addEventListener("click",function(){
+            info_user.style.display = "none";
+            info_bar_address.style.display = "none";
+            info_bar_cash.style.display = "none";
+            info_cart_sucess.style.display = "none";
+            info_cart_auction.style.display = "block"
+            purchase.style.display = "none"
+        })
+        document.getElementById("purchase").addEventListener("click",function(){
+            info_user.style.display = "none";
+            info_bar_address.style.display = "none";
+            info_bar_cash.style.display = "none";
+            info_cart_sucess.style.display = "none";
+            info_cart_auction.style.display = "none"
+            purchase.style.display = "block"
+        })
+        
+    </script>
+</body>
+</html>

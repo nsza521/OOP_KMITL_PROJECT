@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bid Transaction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>  
+    <!-- <style first>  
+        .info {
+            color: black; 
+        }
+        .card{
+            margin: 50px;
+            border-radius: 25px;
+            border: 2px solid black;
+        }
+        .card-body{
+            padding: 25px;
+            border-top: 18px solid rgb(121, 121, 121); 
+            border-right: 18px solid rgb(121, 121, 121);
+            border-radius: 25px; 
+        }
+        .container{
+            border: 30px solid white;
+            border-radius: 50px;
+            background-color: black;
+                        
+        }
+        .caption{
+            background-color: black;
+            color: white;
+            padding: 5px;
+            border-radius: 25px;
+
+        }
+        
+    </style> -->
+    
+
+    <!-- second style -->
+    <style>
+        body {
+            background-color: #121212; 
+            color: #f8f9fa;
+            font-family: 'Roboto', sans-serif; 
+        }
+    
+        .container {
+            border: none;
+            border-radius: 20px;
+            background-color: #dfdfdf; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+    
+        .card {
+            margin: 20px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+    
+        .card-body {
+            padding: 20px;
+            transition: all 0.3s ease; 
+        }
+    
+        .card:hover {
+            box-shadow: 0 5px 100px white; 
+        }
+    
+        .caption {
+            background-color: #ec6218; 
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .info {
+            font-weight: bold;
+        }
+    </style>
+    
+    
+</head>
+
+<body class="bg-dark text-light">
+       <!-- ---------- until this part.just test how to sent data to front end(web page) -->
+
+   <div class="container my-5">
+        <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+                <!-- Loop through each product and display its details -->
+                {% if product %}
+                    {% for bid_transaction in product %}
+                        <div class="card mb-3" style="min-height: 600px">
+                            <div class="card-body">
+                                <!-- Corrected line below -->
+                                <p class="card-text"><strong class="caption">total price:</strong> <span class="info">${{ bid_transaction['total_price'] }}</span> </p>
+                                <p class="card-text"><strong class="caption">account:</strong> <span class="info">{{ bid_transaction['account'] }}</span></p>
+                                <p class="card-text"><strong class="caption">time:</strong> <span class="info">{{ bid_transaction['time'] }}</span></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <div style="width: 100%; height: 600px; display: flex; justify-content: center; align-items: center ;color: black;">ขณะนี้ยังไม่มีใครทำการประมูล</div>
+                {% endif %}
+                    
+            </div>
+        </div>
+    </div>
+<!-- finish show detail -->
+
+    
+
+
+    
+</body>
+</html>

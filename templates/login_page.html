@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111111;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 30rem;
+            background-color: #141414;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+        
+        .container h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .container label {
+            display: block;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .container input {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #222222;
+            color: #fff;
+            border: none;
+            border-radius: 0.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .container input:focus {
+            outline: none;
+            box-shadow: 0 0 3px 1px rgba(255, 255, 255, 0.2);
+        }
+        
+        .container button {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 0.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .container button:hover {
+            background-color: #f40612;
+        }
+        
+        .links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+        .links a{
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+ 
+<body>
+
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <form id="loginForm">
+            <label>Username</label>
+            <input type="int" name="id" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="links">
+            <a href=""></a>
+            <a style="color: white; " href="/register">No Account ?</a>
+            
+        </div>
+    </div>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            const formData = new FormData(this);
+            fetch("/get_login_info", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); 
+                if (data) {
+                    window.location.href = "/redirect/all_product";
+                } else {
+                    console.error("Login failed:", data.error); 
+                }
+            })
+            .catch(error => {
+                console.error("There was a problem with the fetch operation:", error);
+            });
+        });
+    </script>
+    
+</body>
+</html>

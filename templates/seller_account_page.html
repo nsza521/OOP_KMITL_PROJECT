@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 15px;
+            position: relative;
+            bottom: 0px;
+            transition: all 0.3s ease;
+            border: #666;
+            box-shadow: 0px 0px 5px 0.3px rgba(0, 0, 0, 0.3)
+        }
+        .card:hover{
+            position: relative;
+            bottom: 5px;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .product-name {
+            margin-top: 0;
+        }
+        .description {
+            color: #666;
+        }
+        .description p {
+            margin: 10px;
+            padding: 0;
+            font-size: 14px;
+        }
+        .price {
+            font-weight: bold;
+            color:orange
+        }
+        .btn{
+            cursor: pointer;
+        }
+        .floating_box{
+            z-index: 4;
+            visibility: hidden;
+        }
+        form p{
+            font-size: 12px;
+        }
+        form span:hover{
+            opacity: 0.6;
+            cursor: pointer;
+        }
+        button:hover{
+            opacity: 0.6;
+        }
+        input{
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg" class="floating_box" style="width: 100%; height: 100%; background-color: rgba(145, 145, 145, 0.301); position: fixed; display: flex; justify-content: center; align-items: center;" >
+        <div style="width: 100px; height: 550px; width: 450px; background-color: #ffffffdd; border-radius: 25px; display: flex; justify-content: center; flex-direction: row;">
+            <form action="/create_auction" style="display: flex; width: 100%; flex-direction: column;align-items: center;" method="POST">
+                <span id="close" class="material-symbols-outlined" style="align-self:end;position:relative;right: 10px; top: 10px;">close</span>
+                <p style="margin-top: 5px; font-size: 16px; margin-bottom: 25px;">เพิ่มสินค้าลงในคลัง</p>
+                <div style="display:flex; justify-content:center; width: 80%;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">ชื่อสินค้า</p>
+                    <input style="flex:3" type="text" name="product_name" required>
+                </div>
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">ราคาเริ่มต้น</p>
+                    <input style="flex:3" type="number" name="start_price" required>
+                </div>
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">ราคาซื้อทันที</p>
+                    <input style="flex:3" type="number" name="buy_price" required>
+                </div>
+      
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">รูปภาพ (link)</p>
+                    <input  style="flex:3" type="text" name="image_link" required>
+                </div>
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">หมวดหมู่</p>
+                    <select style="flex:3" id="country" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="computer">Computer</option>
+                        <option value="movie">Movie</option>
+                        <option value="sport">Sport</option>
+                        <option value="music">Music</option>
+                        <option value="eletronic">Eletronic</option>
+                        <option value="toy">Toy</option>    
+                        <option value="plant">Plant</option>
+                        <option value="cartoon_animation">Cartoon_animation</option>
+                        <option value="song">Song</option>
+                        <option value="fashiom">Fashion</option>
+                        <option value="home">Home</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="stationery">Stationery</option>
+                        <option value="watch">Watch</option>
+                        <option value="car">Car</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                </div>
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">วันสิ้นสุดการประมูล</p>
+                    <input id="datepicker" onchange="checkDate()" style="flex:3" type="date" name="end_date" required>
+                </div>
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px;">
+                    <p style="flex:1; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0">เวลาสิ้นสุดการประมูล</p>
+                    <input id="datepicker" style="flex:3" type="time" name="end_time" required>
+                </div>
+                {% set first_item = products.values()|first %}
+                {% if first_item is defined %}
+                    <input id="datepicker" style="visibility: hidden; height: 30px;" type="number" name="seller_id" value="{{first_item.seller_id}}" readonly required>
+                {% endif %}
+                <div style="display:flex; justify-content:center; width: 80%; margin-top: 20px; align-items: center;">
+                    <input type="checkbox" required> <label for="" style="font-size: 12px;">ฉันยอมรับข้อตกลงและเงื่อนไขของ Dja_ngo Auction</label>
+                </div>
+                
+                <button style="margin-top: 15px; width: 80%; height: 35px; color: white; background-color: rgb(0, 175, 0); border: none; border-radius: 20px;" type="submit">ตกลง</button>
+            </form>
+        </div>
+    </div>
+    {% include "navbar.html"%}
+    <div style="width: 100%; display:flex;justify-content: center; min-height: 100%;">
+        <div style="flex:1; border: 1px solid black;border-bottom: none; display: flex; flex-direction: column; align-items: center;">
+            <div class="cartoon"  style="display: flex; justify-content: center; margin-top: 10px;"><img style="width: 80%; border: 1px solid gray; border-radius: 10px;" src="https://pbs.twimg.com/media/F9b9GbkasAAQ9Kl?format=jpg&name=4096x4096" alt=""></div>
+            <div style="margin-top: 10px; font-weight: 500;">ยินดีต้อนรับคุณ Seller</div>
+            {% set first_item = products.values()|first %}
+            {% if first_item is defined %}
+                <div style="font-size: 14px;">{{ first_item.seller_name }}</div>
+            {% endif %}
+
+
+            <div style="width: 100%; display:flex;flex-direction:column;; border-top: 1px solid rgba(128, 128, 128, 0.478); margin-top: 20px;padding-top: 10px; align-items: center;">
+                <p style="font-size: 14px; margin: 0%; padding: 0;">ระบบจัดการสินค้าภายในคลัง</p>
+                
+                <button id="btn_show_close" style="color:white;background-color: orange;height: 30px; width: 75%; border: none; border-radius: 10px; font-size: 14px; margin-top: 20px;">เพิ่มสินค้าประมูล</button>
+
+                {% set first_item = products.values()|first %}
+                {% if first_item is defined %}
+                    <div style="font-size: 14px; display: flex; justify-content: space-around;"><p style="margin: 5px;">จำนวนเงินของท่าน</p><p style="margin: 5px;">{{ "{:,.0f}".format(first_item.seller_credit) }} ฿</p></div>
+                {% endif %}
+                <button id="btn_show_close" style="color:white;background-color: red;height: 30px; width: 75%; border: none; border-radius: 10px; font-size: 14px; margin-top: 20px;" onclick="openForm()">ถอนเงิน</button>
+            </div>
+        </div>
+        <div style="flex:7">
+            <p style="margin-left: 20px; margin-top: 20px;">- สินค้าที่กำลังทำการขาย/ประมูล</p>
+            
+               
+            <div style="width: 100%; display: flex;flex-wrap: wrap;">
+                {% if products %}
+                    {% for key, value in products.items() %}
+                        <div class="card">
+                            <div style="min-height: 350px; display: flex; align-items: center;">
+                                <img src="{{(value.path)}}" alt="Product Image" style="max-height: 100%;" >
+                            </div>
+                            <div class="card-content" style="height: 100%; display: flex; flex-direction: column;">
+                                <h2 class="product-name">{{ value.name }}</h2>
+                                <div class="description">
+                                    <p>สถานะประมูล : {{ value.status }}</p>
+                                    <p>ราคาเริ่มต้น :  {{ "{:,.0f}".format(value.start_price) }} ฿</p>
+                                    <p>ราคาซื้อทันที : {{ "{:,.0f}".format(value.buy_price) }} ฿</p>
+                                    <p>ไอดีของสินค้า : {{ value.id }}</p>
+                                </div>
+                                <p class="price">ราคาปัจจุบัน : {{ "{:,.0f}".format(value.price) }} ฿</p>
+                                <div class="button-container" style="margin-top: auto; color:white;background-color: red;height: 35px; width: 100%; border: none; border-radius: 10px;">
+                                    <a href="/cancle_auction/{{ value.id }}/Cancle/{{ value.seller_id }}" class="cancel-button" style="width: 100%;height: 100%; display:flex; justify-content: center; align-items: center; text-decoration: none; color: white;">ยกเลิกการประมูล</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                    <div style="width: 100%; justify-content: center; display: flex; font-size: 18px; height: 600px; align-items: center;">
+                        <p>No products available for this seller.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .withdraw-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .withdraw-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .withdraw-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .withdraw-form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .withdraw-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .withdraw-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <div class="withdraw-form-container" id="withdraw-form-container">
+        <div class="withdraw-form">
+            <button class="close-btn" onclick="closeForm()">Close</button>
+            <form id="withdraw-form" action="/withdraw" method="post">
+                <label for="withdraw-amount">Withdraw Amount:</label>
+                <input type="number" id="withdraw-amount" name="amount">
+                {% set first_item = products.values()|first %}
+                {% if first_item is defined %}
+                    <input type="number" id="withdraw-amount" name="account_id" style="display: none;" value="{{ first_item.seller_id }}" readonly>
+                {% endif %}
+                <input type="submit" value="Withdraw">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function closeForm() {
+            document.getElementById('withdraw-form-container').style.display = 'none';
+        }
+        function openForm() {
+            document.getElementById('withdraw-form-container').style.display = 'flex';
+        }
+    </script>
+
+
+    <script>
+         function checkDate() {
+            var selectedText = document.getElementById('datepicker').value;
+            var selectedDate = new Date(selectedText);
+            var now = new Date();
+            if (selectedDate < now) {
+                alert("Date must be in the future (วันที่ห้ามเป็นอดีต)");
+            }
+        }
+        const showButton = document.getElementById('btn_show_close');
+        const floatingDiv = document.querySelector('.floating_box');
+        const bg = document.getElementById("close")
+        showButton.addEventListener('click', () => {
+            if (floatingDiv.style.visibility == 'hidden') {
+                floatingDiv.style.visibility = 'visible';
+            } else {
+                floatingDiv.style.visibility = 'hidden';
+            }
+        });
+        bg.addEventListener('click',()=>{
+            if (floatingDiv.style.visibility == 'hidden') {
+                floatingDiv.style.visibility = 'visible';
+            } else {
+                floatingDiv.style.visibility = 'hidden';
+            }
+        })
+    </script>
+</body>
+</html>
